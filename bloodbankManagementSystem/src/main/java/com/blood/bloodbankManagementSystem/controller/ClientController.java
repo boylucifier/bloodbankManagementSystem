@@ -29,10 +29,6 @@ public class ClientController {
     public Client adClient(@Valid @RequestBody ClientCreateRequest clientCreateRequest){
         return clientService.saveClient(clientCreateRequest);
     }
-    @GetMapping(value="/getClientsByBloodBank/{id}")
-    public List<Client> getAllClientByBloodBank(@PathVariable("id") int id){
-        return clientService.getAllClientAssociatedToABloodBank(id);
-    }
 
     @DeleteMapping(value="/deleteClientById/{id}")
     public String deleteClientByID(@PathVariable("id") int id){

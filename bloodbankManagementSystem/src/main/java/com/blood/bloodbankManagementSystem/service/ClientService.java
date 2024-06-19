@@ -14,8 +14,6 @@ public class ClientService {
 
     @Autowired
     private ClientRepos clientRepos;
-    @Autowired
-    private BloodBankService bloodBankService;
 
     public Client getClientById(int id){
         return clientRepos.findById(id).orElseThrow(()-> new RuntimeException("client not present"));
@@ -23,8 +21,7 @@ public class ClientService {
     public List<Client> getAllClient(){
         return clientRepos.findAll();
     }
-    public List<Client> getAllClientAssociatedToABloodBank(int id){
-        BloodBank bank = bloodBankService.getBloodBank(id);
+    public List<Client> getAllClientAssociatedToABloodBank(BloodBank bank){
         return clientRepos.findByAssociatedBloodBanks(bank);
     }
     public Client saveClient(ClientCreateRequest clientCreateRequest){

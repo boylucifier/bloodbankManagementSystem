@@ -2,6 +2,8 @@ package com.blood.bloodbankManagementSystem.service;
 
 import com.blood.bloodbankManagementSystem.createRequest.BloodBankCreateRequest;
 import com.blood.bloodbankManagementSystem.model.BloodBank;
+import com.blood.bloodbankManagementSystem.model.Client;
+import com.blood.bloodbankManagementSystem.model.Donor;
 import com.blood.bloodbankManagementSystem.repositery.BloodBankRepos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +14,9 @@ import java.util.List;
 public class BloodBankService {
     
     @Autowired
-    BloodBankRepos bloodBankRepos;
+    private BloodBankRepos bloodBankRepos;
+    @Autowired
+    private ClientService clientService;
 
     public BloodBank save(BloodBankCreateRequest bloodBankCreateRequest) {
         BloodBank bank = bloodBankCreateRequest.to();
@@ -31,4 +35,10 @@ public class BloodBankService {
     public List<BloodBank> getAllBloodBanks() {
         return bloodBankRepos.findAll();
     }
+
+    public List<Client> getAllClientsForABloodBank(int id){
+        BloodBank bank = bloodBankRepos.findById(id).orElseThrow(()-> new RuntimeException("blood bank not present"));
+        return clientService.getAllClientAssociatedToABloodBank(bank);
+    }
+
 }

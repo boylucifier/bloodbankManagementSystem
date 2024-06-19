@@ -2,6 +2,7 @@ package com.blood.bloodbankManagementSystem.controller;
 
 import com.blood.bloodbankManagementSystem.createRequest.BloodBankCreateRequest;
 import com.blood.bloodbankManagementSystem.model.BloodBank;
+import com.blood.bloodbankManagementSystem.model.Client;
 import com.blood.bloodbankManagementSystem.service.BloodBankService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,10 @@ public class BloodBankController {
     @GetMapping("/getAllBloodBank")
     public List<BloodBank> getAllBloodBanks(){
         return bloodBankService.getAllBloodBanks();
+    }
+
+    @GetMapping("/getAllClientsForBloodBank/{id}")
+    public List<Client> getAllClientsForBank(@PathVariable("id") int id){
+        return bloodBankService.getAllClientsForABloodBank(id);
     }
 }
